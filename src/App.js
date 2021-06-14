@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useGlobalContext } from "./context";
 import { Modal } from "./Modal";
 import "./styles.css";
-
 export default function App() {
   // const [showModal, setShowModal] = useState(false);
 
@@ -64,3 +63,5 @@ export default function App() {
     </div>
   );
 }
+
+//single image upload no list idea make yet
