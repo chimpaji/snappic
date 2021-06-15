@@ -11,9 +11,9 @@ export const Modal = (props) => {
     setShowModal(false);
     showCroppedImage({ id: selectedImageId });
   };
-  const cancelCropHandling = () => {
-    setShowModal(false);
-  };
+  // const cancelCropHandling = () => {
+  //   setShowModal(false);
+  // };
 
   const content = showModal && (
     <div className="absolute bg-gray-500 bg-opacity-50 h-full w-full flex justify-center items-center">

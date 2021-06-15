@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Body from "./Body";
 import Bottom from "./Bottom";
 import { useGlobalContext } from "./context";
 import ImageOptionModal from "./imageOptionModal";
@@ -27,7 +28,7 @@ export default function App() {
     <div className="App">
       <div className="flex flex-col h-screen">
         <Navbar />
-        <div className="flex-grow  flex justify-center items-center">
+        {/* <div className="flex-grow  flex justify-center items-center">
           <div className="inline-flex w-full space-x-5  overflow-x-scroll h-full items-center xs:no-scrollbar">
             {imageSrc.length > 0 ? (
               <>
@@ -49,7 +50,7 @@ export default function App() {
                     />
                   </div>
                 </div>
-                {/* map over the imageSrcCropped */}
+                
                 <div className="flex flex-shrink-0 space-x-5 items-center">
                   {imageSrcCropped.map((element) => (
                     <SingleImage id={element.id} key={element.id} />
@@ -93,6 +94,8 @@ export default function App() {
             )}
           </div>
         </div>
+         */}
+        <Body />
         <Bottom />
       </div>
 
