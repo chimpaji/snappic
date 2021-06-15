@@ -1,6 +1,10 @@
 import { useEffect } from "react";
+import Bottom from "./Bottom";
 import { useGlobalContext } from "./context";
+import ImageOptionModal from "./imageOptionModal";
 import { Modal } from "./Modal";
+import Navbar from "./Navbar";
+import SingleImage from "./singleImage";
 import "./styles.css";
 export default function App() {
   // const [showModal, setShowModal] = useState(false);
@@ -10,56 +14,108 @@ export default function App() {
     onFileChange,
     showModal,
     setShowModal,
-    setCroppedImage
+    setCroppedImage,
+    imageSrc,
+    imageSrcCropped
   } = useGlobalContext();
 
+  console.log("imageSrcCropped length: ", imageSrcCropped.length);
   useEffect(() => {
     console.log(showModal);
   }, [showModal]);
   return (
     <div className="App">
-      <h1 className="text-black">Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-      <div className="flex flex-cols justify-center items-center ">
-        <div>
-          <button>+</button>
+      <div className="flex flex-col h-screen">
+        <Navbar />
+        <div className="flex-grow  flex justify-center items-center p-5 overflow-x-scroll">
+          <div className="inline-flex w-full space-x-5 justify-center">
+            {imageSrc.length > 0 ? (
+              <>
+                <div className="h-48 w-48 min-w-min">
+                  <div className="w-48 h-48">
+                    <label htmlFor="upload-image">
+                      <div className="h-48 w-48  border-dashed border-4 border-gray-500 rounded-xl ">
+                        <div className="h-full flex  justify-center items-center text-4xl text-gray-500">
+                          +
+                        </div>
+                      </div>
+                    </label>
+                    <input
+                      className="hidden"
+                      type="file"
+                      onChange={onFileChange}
+                      accept="image/*"
+                      id="upload-image"
+                    />
+                  </div>
+                </div>
+                {/* check if there's any uploaded images */}
+                <div className="flex flex-shrink-0 space-x-5">
+                  {imageSrc.length > 0 ? (
+                    imageSrcCropped.map((element) => (
+                      <SingleImage id={element.id} key={element.id} />
+                    ))
+                  ) : (
+                    // if there's no uploaded img then show placeholder
+                    <div>
+                      <label htmlFor="upload-image">
+                        <div className=" h-48 w-48 animate-pulse border-dashed border-4 border-pink-500 rounded-xl flex justify-center items-center text-6xl text-pink-500">
+                          <div>+</div>
+                        </div>
+                      </label>
+                      <input
+                        className="hidden"
+                        type="file"
+                        onChange={onFileChange}
+                        accept="image/*"
+                        id="upload-image"
+                      />
+                    </div>
+                  )}
+                </div>
+                <div className="h-48 w-48 min-w-min">
+                  <div className="w-48 h-48">
+                    <label htmlFor="upload-image">
+                      <div className="h-48 w-48  border-dashed border-4 border-gray-500 rounded-xl ">
+                        <div className="h-full flex  justify-center items-center text-4xl text-gray-500">
+                          +
+                        </div>
+                      </div>
+                    </label>
+                    <input
+                      className="hidden"
+                      type="file"
+                      onChange={onFileChange}
+                      accept="image/*"
+                      id="upload-image"
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="">
+                <div className="text-xl ">Choose a picture</div>
+                <label htmlFor="upload-image">
+                  <div className=" h-48 w-48 animate-pulse border-dashed border-4 border-pink-500 rounded-xl flex justify-center items-center text-6xl text-pink-500">
+                    <div>+</div>
+                  </div>
+                </label>
+                <input
+                  className="hidden"
+                  type="file"
+                  onChange={onFileChange}
+                  accept="image/*"
+                  id="upload-image"
+                />
+              </div>
+            )}
+          </div>
         </div>
-        <div>
-          {croppedImage ? (
-            <img className="h-48" src={croppedImage} alt="crop" />
-          ) : (
-            <label htmlFor="upload-image">
-              <img
-                className="h-48"
-                alt="upload-placeholder"
-                src="https://via.placeholder.com/150"
-              />
-            </label>
-          )}
-          <input
-            className="hidden"
-            type="file"
-            onChange={onFileChange}
-            accept="image/*"
-            id="upload-image"
-          />
-        </div>
+        <Bottom />
       </div>
-      <div>
-        <button
-          className="bg-blue-500 p-3 text-white rounded-xl m-5 hover:bg-green-500"
-          onClick={() => setShowModal(true)}
-        >
-          edit cropping
-        </button>
-        <button
-          className="bg-blue-500 p-3 text-white rounded-xl m-5 hover:bg-green-500"
-          onClick={() => setCroppedImage(null)}
-        >
-          Clear Image
-        </button>
-      </div>
+
       <Modal setShowModal={setShowModal} showModal={showModal} />
+      <ImageOptionModal />
     </div>
   );
 }

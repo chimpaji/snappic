@@ -19,7 +19,8 @@ export default function Crop() {
     setCroppedImage,
     onCropComplete,
     showCroppedImage,
-    imageSrc
+    imageSrc,
+    selectedImageId
   } = useGlobalContext();
   // const [crop, setCrop] = useState({ x: 0, y: 0 });
   // const [rotation, setRotation] = useState(0);
@@ -46,12 +47,15 @@ export default function Crop() {
   // const onClose = useCallback(() => {
   //   setCroppedImage(null);
   // }, []);
+  console.log("in Cropper.js", imageSrc);
+  console.log(imageSrc);
+  console.log(selectedImageId);
 
   return (
     <div className="">
       <div>
         <Cropper
-          image={imageSrc}
+          image={imageSrc.find((element) => element.id === selectedImageId).img}
           crop={crop}
           rotation={rotation}
           zoom={zoom}

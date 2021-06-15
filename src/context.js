@@ -3,12 +3,30 @@ import React, { useCallback, useContext, useState } from "react";
 import getCroppedImg from "./cropImage";
 // const dogImg =
 //   "https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000";
+import { v4 as uuidv4 } from "uuid";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
+  //border
+  const border = [
+    { id: "Ever", img: "https://i.imgur.com/dquqnfe.png" },
+    { id: "Clean", img: "https://i.imgur.com/BDYAQEO.png" },
+    { id: "Classic", img: "https://i.imgur.com/zNJ3eQ4.png" },
+    { id: "Bold", img: "https://i.imgur.com/OoTQNIB.png" }
+  ];
+  const [chooseBorder, setChooseBorder] = useState("Ever");
   //Modal's state
   const [showModal, setShowModal] = useState(false);
+  //Image option Modal
+  const [showImageOptionModal, setShowImageOptionModal] = useState(false);
+  const imageOptionHandling = (id) => {
+    console.log(id);
+    setSelectedImageId(id);
+    setShowImageOptionModal(true);
+  };
   //Cropper's state
+  const [imageSrcCropped, setImageSrcCropped] = useState([]);
+  const [selectedImageId, setSelectedImageId] = useState("");
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [zoom, setZoom] = useState(1);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -19,23 +37,36 @@ const AppProvider = ({ children }) => {
 
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
-  const showCroppedImage = useCallback(async () => {
-    try {
-      const croppedImage = await getCroppedImg(
-        imageSrc,
-        croppedAreaPixels,
-        rotation
-      );
-      // console.log("donee", { croppedImage });
-      setCroppedImage(croppedImage);
-    } catch (e) {
-      console.error(e);
-    }
-  }, [croppedAreaPixels, rotation]);
+  const showCroppedImage = useCallback(
+    async ({ id }) => {
+      console.log(id);
+      console.log("Heres the imageSrc", imageSrc);
+
+      try {
+        const croppedImage = await getCroppedImg(
+          imageSrc.find((element) => element.id === selectedImageId).img,
+          croppedAreaPixels,
+          rotation
+        );
+        // console.log("donee", { croppedImage });
+        const newImageSrcCropped = imageSrcCropped.filter(
+          (element) => element.id !== id
+        );
+        setCroppedImage(croppedImage);
+        setImageSrcCropped([
+          ...newImageSrcCropped,
+          { id: `${id}`, img: croppedImage }
+        ]);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [croppedAreaPixels, rotation]
+  );
   //ending Cropper's state here
 
   //handlindInput
-  const [imageSrc, setImageSrc] = React.useState(null);
+  const [imageSrc, setImageSrc] = React.useState([]);
   const onFileChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -48,8 +79,19 @@ const AppProvider = ({ children }) => {
       // if (rotation) {
       //   imageDataUrl = await getRotatedImage(imageDataUrl, rotation);
       // }
+      const newUploadImageId = uuidv4();
+      setSelectedImageId(newUploadImageId);
+      setImageSrcCropped([
+        ...imageSrcCropped,
+        { id: `${newUploadImageId}`, img: imageDataUrl }
+      ]);
+      // console.log(imageSrc);
+      setImageSrc([
+        ...imageSrc,
+        { id: `${newUploadImageId}`, img: imageDataUrl }
+      ]);
+      // console.log("working on next cropped src");
 
-      setImageSrc(imageDataUrl);
       setShowModal(true);
     }
   };
@@ -81,7 +123,17 @@ const AppProvider = ({ children }) => {
         imageSrc,
         showModal,
         setShowModal,
-        setImageSrc
+        setImageSrc,
+        selectedImageId,
+        setSelectedImageId,
+        imageSrcCropped,
+        setImageSrcCropped,
+        showImageOptionModal,
+        setShowImageOptionModal,
+        imageOptionHandling,
+        border,
+        chooseBorder,
+        setChooseBorder
       }}
     >
       {children}

@@ -5,11 +5,11 @@ import Crop from "./cropper";
 
 export const Modal = (props) => {
   const { setShowModal, showModal } = props;
-  const { showCroppedImage } = useGlobalContext();
+  const { showCroppedImage, selectedImageId } = useGlobalContext();
 
   const doneCropHandling = () => {
     setShowModal(false);
-    showCroppedImage();
+    showCroppedImage({ id: selectedImageId });
   };
   const cancelCropHandling = () => {
     setShowModal(false);
