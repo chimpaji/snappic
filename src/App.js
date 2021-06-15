@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Body from "./Body";
 import Bottom from "./Bottom";
 import { useGlobalContext } from "./context";

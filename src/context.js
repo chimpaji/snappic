@@ -9,10 +9,10 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   //border
   const border = [
-    { id: "Ever", img: "https://i.imgur.com/dquqnfe.png" },
-    { id: "Clean", img: "https://i.imgur.com/BDYAQEO.png" },
-    { id: "Classic", img: "https://i.imgur.com/zNJ3eQ4.png" },
-    { id: "Bold", img: "https://i.imgur.com/OoTQNIB.png" }
+    { id: "Ever", img: "/img/borderSelection/everIcon@3x.png" },
+    { id: "Clean", img: "/img/borderSelection/cleanIcon@3x.png" },
+    { id: "Classic", img: "/img/borderSelection/classicIcon@3x.png" },
+    { id: "Bold", img: "/img/borderSelection/boldIcon@3x.png" }
   ];
   const [chooseBorder, setChooseBorder] = useState("Ever");
   //Modal's state
