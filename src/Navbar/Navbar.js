@@ -10,7 +10,7 @@ export default function Navbar() {
       <NavbarUpper />
       <div className="flex justify-between">
         {border.map((element, index) => {
-          if (border[index].id === chooseBorder) {
+          if (border[index].id === chooseBorder.id) {
             return <BorderChoice key={index} index={index} selected="true" />;
           } else {
             return <BorderChoice key={index} index={index} selected="false" />;

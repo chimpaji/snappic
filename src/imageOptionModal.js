@@ -30,7 +30,7 @@ export default function ImageOptionModal({ id }) {
 
   const content = showImageOptionModal && (
     <div
-      className="absolute flex flex-col justify-end items-center  bg-gray-500 bg-opacity-50 h-full w-full"
+      className="z-40 absolute flex flex-col justify-end items-center  bg-gray-500 bg-opacity-50 h-full w-full"
       onClick={() => setShowImageOptionModal(false)}
     >
       <div

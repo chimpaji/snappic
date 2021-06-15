@@ -5,7 +5,7 @@ export default function UploadMoreButtonAnimation() {
   return (
     <div className="flex flex-col w-full items-center justify-center">
       <div className="text-xl">
-        {chooseBorder} {singleImageBorder}
+        {chooseBorder.white_space} {chooseBorder.id}
       </div>
       <div className="text-xl ">Choose a picture</div>
       <label htmlFor="upload-image">

@@ -8,11 +8,33 @@ import { v4 as uuidv4 } from "uuid";
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   //border
+  const whiteBorderUrl = "/img/borderSingleImage/white.svg";
+  const blackBorderUrl = "/img/borderSingleImage/black.svg";
   const border = [
-    { id: "Ever", img: "/img/borderSelection/everIcon@3x.png" },
-    { id: "Clean", img: "/img/borderSelection/cleanIcon@3x.png" },
-    { id: "Classic", img: "/img/borderSelection/classicIcon@3x.png" },
-    { id: "Bold", img: "/img/borderSelection/boldIcon@3x.png" }
+    {
+      id: "Ever",
+      img: "/img/borderSelection/everIcon@3x.png",
+      white_space: "true",
+      borderUrl: whiteBorderUrl
+    },
+    {
+      id: "Clean",
+      img: "/img/borderSelection/cleanIcon@3x.png",
+      white_space: "false",
+      borderUrl: whiteBorderUrl
+    },
+    {
+      id: "Classic",
+      img: "/img/borderSelection/classicIcon@3x.png",
+      white_space: "true",
+      borderUrl: blackBorderUrl
+    },
+    {
+      id: "Bold",
+      img: "/img/borderSelection/boldIcon@3x.png",
+      white_space: "false",
+      borderUrl: blackBorderUrl
+    }
   ];
   const borderSingleImage = [
     {
@@ -26,10 +48,11 @@ const AppProvider = ({ children }) => {
       img: "/img/borderSingleImage/white.svg"
     }
   ];
-  const [chooseBorder, setChooseBorder] = useState("Ever");
+  const [chooseBorder, setChooseBorder] = useState(border[0]);
   const [singleImageBorder, setSingleImageBorder] = useState("white");
   const chooseBorderHandling = (id) => {
-    setChooseBorder(id);
+    const chooseBorder = border.find((element) => element.id === id);
+    setChooseBorder(chooseBorder);
     borderSingleImage[0].borderId.includes(id)
       ? setSingleImageBorder("black")
       : setSingleImageBorder("white");
@@ -68,14 +91,22 @@ const AppProvider = ({ children }) => {
           rotation
         );
         // console.log("donee", { croppedImage });
-        const newImageSrcCropped = imageSrcCropped.filter(
-          (element) => element.id !== id
-        );
+        // const newImageSrcCropped = imageSrcCropped.filter(
+        //   (element) => element.id !== id
+        // );
+        const newImageSrcCropped = [...imageSrcCropped];
         setCroppedImage(croppedImage);
-        setImageSrcCropped([
-          ...newImageSrcCropped,
-          { id: `${id}`, img: croppedImage }
-        ]);
+        //we need to fix this for the positioning
+        newImageSrcCropped[
+          imageSrcCropped.indexOf(
+            imageSrcCropped.find((element) => element.id === id)
+          )
+        ] = { id: `${id}`, img: croppedImage };
+        // setImageSrcCropped([
+        //   ...newImageSrcCropped,
+        //   { id: `${id}`, img: croppedImage }
+        // ]);
+        setImageSrcCropped([...newImageSrcCropped]);
       } catch (e) {
         console.error(e);
       }
@@ -85,6 +116,7 @@ const AppProvider = ({ children }) => {
   //ending Cropper's state here
 
   //handlindInput
+  const [addImagePosition, setAddImagePosition] = useState("");
   const [imageSrc, setImageSrc] = React.useState([]);
   const onFileChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -99,11 +131,20 @@ const AppProvider = ({ children }) => {
       //   imageDataUrl = await getRotatedImage(imageDataUrl, rotation);
       // }
       const newUploadImageId = uuidv4();
+      //if addImagePosition is infront then we add image to the first element index
       setSelectedImageId(newUploadImageId);
-      setImageSrcCropped([
-        ...imageSrcCropped,
-        { id: `${newUploadImageId}`, img: imageDataUrl }
-      ]);
+      console.log(addImagePosition);
+
+      addImagePosition === "front"
+        ? setImageSrcCropped([
+            { id: `${newUploadImageId}`, img: imageDataUrl },
+            ...imageSrcCropped
+          ])
+        : setImageSrcCropped([
+            ...imageSrcCropped,
+            { id: `${newUploadImageId}`, img: imageDataUrl }
+          ]);
+
       // console.log(imageSrc);
       setImageSrc([
         ...imageSrc,
@@ -155,7 +196,8 @@ const AppProvider = ({ children }) => {
         setChooseBorder,
         borderSingleImage,
         chooseBorderHandling,
-        singleImageBorder
+        singleImageBorder,
+        setAddImagePosition
       }}
     >
       {children}

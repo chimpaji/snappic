@@ -1,14 +1,17 @@
 import { useGlobalContext } from "./context";
 import SingleImage from "./singleImage";
-import UploadMoreButton from "./uploadMoreButton";
+import UploadMoreButton, {
+  BackUploadMoreButton,
+  FrontUploadMoreButton
+} from "./uploadMoreButton";
 import UploadMoreButtonAnimation from "./uploadMoreButtonAnimation";
 
 export default function Body() {
   const { imageSrc, imageSrcCropped } = useGlobalContext();
   return (
     <div className="flex-grow  flex justify-center items-center">
-      <div className="inline-flex w-full space-x-5  overflow-x-scroll h-full items-center xs:no-scrollbar">
-        <>
+      <div className="inline-flex w-full space-x-5    overflow-x-scroll h-full items-center xs:no-scrollbar">
+        {/* <>
           <UploadMoreButton />
 
           <div className="flex flex-shrink-0 space-x-5 items-center ">
@@ -46,13 +49,13 @@ export default function Body() {
             </div>
           </div>
           <UploadMoreButton />
-        </>
+        </> */}
 
         {/* Comment out the funcitonal */}
         {/* {imageSrc.length > 0 ? (
           <>
             <UploadMoreButton />
-            
+
             <div className="flex flex-shrink-0 space-x-5 items-center">
               {imageSrcCropped.map((element) => (
                 <SingleImage id={element.id} key={element.id} />
@@ -63,6 +66,21 @@ export default function Body() {
         ) : (
           <UploadMoreButtonAnimation />
         )} */}
+        {imageSrc.length > 0 ? (
+          <div className="flex justify-center space-x-2">
+            {/* <UploadMoreButton front="front" /> */}
+            <FrontUploadMoreButton />
+            <div className="flex flex-shrink-0  items-center space-x-5">
+              {imageSrcCropped.map((element) => (
+                <SingleImage id={element.id} key={element.id} />
+              ))}
+            </div>
+            <BackUploadMoreButton />
+            {/* <UploadMoreButton front="back" /> */}
+          </div>
+        ) : (
+          <UploadMoreButtonAnimation />
+        )}
       </div>
     </div>
   );
