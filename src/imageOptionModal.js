@@ -51,7 +51,7 @@ export default function ImageOptionModal({ id }) {
             d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z"
           />
         </svg>
-        <span>Adjust Crop</span>
+        <span>ปรับมุมรูป</span>
       </div>
       <div
         className=" flex items-center space-x-2 bg-white py-2 w-64 border-t-2 border-gray-200 pl-4"
@@ -69,7 +69,7 @@ export default function ImageOptionModal({ id }) {
             clip-rule="evenodd"
           />
         </svg>
-        <span>Remove tile</span>
+        <span>ลบรูปนี้ไป</span>
       </div>
     </div>
   );

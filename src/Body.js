@@ -68,15 +68,15 @@ export default function Body() {
         )} */}
         {imageSrc.length > 0 ? (
           <div className="flex justify-center space-x-2">
-            {/* <UploadMoreButton front="front" /> */}
-            <FrontUploadMoreButton />
+            {/* <UploadMoreButton position="front" /> */}
+            <FrontUploadMoreButton position="front" />
             <div className="flex flex-shrink-0  items-center space-x-5">
               {imageSrcCropped.map((element) => (
                 <SingleImage id={element.id} key={element.id} />
               ))}
             </div>
-            <BackUploadMoreButton />
-            {/* <UploadMoreButton front="back" /> */}
+            <BackUploadMoreButton position="back" />
+            {/* <UploadMoreButton position="back" /> */}
           </div>
         ) : (
           <UploadMoreButtonAnimation />

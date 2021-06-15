@@ -116,7 +116,7 @@ const AppProvider = ({ children }) => {
   //ending Cropper's state here
 
   //handlindInput
-  const [addImagePosition, setAddImagePosition] = useState("");
+  const [addImagePosition, setAddImagePosition] = useState("front");
   const [imageSrc, setImageSrc] = React.useState([]);
   const onFileChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -124,12 +124,6 @@ const AppProvider = ({ children }) => {
       let imageDataUrl = await readFile(file);
       console.log("uploading files");
 
-      // // apply rotation if needed
-      // const orientation = await getOrientation(file);
-      // const rotation = ORIENTATION_TO_ANGLE[orientation];
-      // if (rotation) {
-      //   imageDataUrl = await getRotatedImage(imageDataUrl, rotation);
-      // }
       const newUploadImageId = uuidv4();
       //if addImagePosition is infront then we add image to the first element index
       setSelectedImageId(newUploadImageId);
@@ -146,15 +140,70 @@ const AppProvider = ({ children }) => {
           ]);
 
       // console.log(imageSrc);
-      setImageSrc([
-        ...imageSrc,
-        { id: `${newUploadImageId}`, img: imageDataUrl }
-      ]);
+      addImagePosition === "front"
+        ? setImageSrc([
+            { id: `${newUploadImageId}`, img: imageDataUrl },
+            ...imageSrc
+          ])
+        : setImageSrc([
+            ...imageSrc,
+            { id: `${newUploadImageId}`, img: imageDataUrl }
+          ]);
       // console.log("working on next cropped src");
 
       setShowModal(true);
     }
   };
+  // const onFileChangeBack = async (e) => {
+  //   if (e.target.files && e.target.files.length > 0) {
+  //     const file = e.target.files[0];
+  //     let imageDataUrl = await readFile(file);
+  //     console.log("uploading files");
+
+  //     const newUploadImageId = uuidv4();
+  //     //if addImagePosition is infront then we add image to the first element index
+  //     setSelectedImageId(newUploadImageId);
+  //     console.log(addImagePosition);
+
+  //     setImageSrcCropped([
+  //       ...imageSrcCropped,
+  //       { id: `${newUploadImageId}`, img: imageDataUrl }
+  //     ]);
+
+  //     // console.log(imageSrc);
+  //     setImageSrc([
+  //       ...imageSrc,
+  //       { id: `${newUploadImageId}`, img: imageDataUrl }
+  //     ]);
+  //     // console.log("working on next cropped src");
+
+  //     setShowModal(true);
+  //   }
+  // };
+  // const onFileChangeFront = async (e) => {
+  //   if (e.target.files && e.target.files.length > 0) {
+  //     const file = e.target.files[0];
+  //     let imageDataUrl = await readFile(file);
+  //     console.log("uploading files");
+
+  //     const newUploadImageId = uuidv4();
+  //     //if addImagePosition is infront then we add image to the first element index
+  //     setSelectedImageId(newUploadImageId);
+  //     setImageSrcCropped([
+  //       { id: `${newUploadImageId}`, img: imageDataUrl },
+  //       ...imageSrcCropped
+  //     ]);
+
+  //     // console.log(imageSrc);
+  //     setImageSrc([
+  //       { id: `${newUploadImageId}`, img: imageDataUrl },
+  //       ...imageSrc
+  //     ]);
+  //     // console.log("working on next cropped src");
+
+  //     setShowModal(true);
+  //   }
+  // };
   function readFile(file) {
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -197,7 +246,8 @@ const AppProvider = ({ children }) => {
         borderSingleImage,
         chooseBorderHandling,
         singleImageBorder,
-        setAddImagePosition
+        setAddImagePosition,
+        addImagePosition
       }}
     >
       {children}
