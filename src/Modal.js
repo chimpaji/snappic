@@ -34,12 +34,12 @@ export const Modal = (props) => {
             >
               done cropping
             </button>
-            <button
+            {/* <button
               className="p-2 text-white bg-blue-500"
               onClick={() => cancelCropHandling()}
             >
               cancel
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
