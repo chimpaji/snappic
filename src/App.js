@@ -3,7 +3,7 @@ import Bottom from "./Bottom";
 import { useGlobalContext } from "./context";
 import ImageOptionModal from "./imageOptionModal";
 import { Modal } from "./Modal";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/Navbar";
 import "./styles.css";
 export default function App() {
   const { showModal, setShowModal } = useGlobalContext();

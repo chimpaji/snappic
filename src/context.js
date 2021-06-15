@@ -14,7 +14,26 @@ const AppProvider = ({ children }) => {
     { id: "Classic", img: "/img/borderSelection/classicIcon@3x.png" },
     { id: "Bold", img: "/img/borderSelection/boldIcon@3x.png" }
   ];
+  const borderSingleImage = [
+    {
+      id: "black",
+      borderId: ["Classic", "Bold"],
+      img: "/img/borderSingleImage/black.svg"
+    },
+    {
+      id: "white",
+      borderId: ["Ever", "Clean"],
+      img: "/img/borderSingleImage/white.svg"
+    }
+  ];
   const [chooseBorder, setChooseBorder] = useState("Ever");
+  const [singleImageBorder, setSingleImageBorder] = useState("white");
+  const chooseBorderHandling = (id) => {
+    setChooseBorder(id);
+    borderSingleImage[0].borderId.includes(id)
+      ? setSingleImageBorder("black")
+      : setSingleImageBorder("white");
+  };
   //Modal's state
   const [showModal, setShowModal] = useState(false);
   //Image option Modal
@@ -133,7 +152,10 @@ const AppProvider = ({ children }) => {
         imageOptionHandling,
         border,
         chooseBorder,
-        setChooseBorder
+        setChooseBorder,
+        borderSingleImage,
+        chooseBorderHandling,
+        singleImageBorder
       }}
     >
       {children}
