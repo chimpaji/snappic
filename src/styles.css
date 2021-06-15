@@ -6,8 +6,3 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
-#modal > div > div {
-  margin-left: auto;
-  margin-right: auto;
-}

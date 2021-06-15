@@ -7,18 +7,26 @@ export default function ImageOptionModal({ id }) {
     setShowImageOptionModal,
     setShowModal,
     imageSrc,
-    selectedImageId
+    selectedImageId,
+    setImageSrc,
+    setImageSrcCropped,
+    imageSrcCropped
   } = useGlobalContext();
   const adjustClickHandling = () => {
     setShowModal(true);
   };
-  console.log("in image option modal check");
+  const removeClickHandling = () => {
+    const newImageSrcCropped = imageSrcCropped.filter(
+      (element) => element.id !== selectedImageId
+    );
+    const newImageSrc = imageSrc.filter(
+      (element) => element.id !== selectedImageId
+    );
 
-  console.log(imageSrc);
-  console.log(selectedImageId);
-  console.log(
-    imageSrc.find((element) => element.id === selectedImageId) ? "yes" : "no"
-  );
+    setImageSrcCropped(newImageSrcCropped);
+    setImageSrc(newImageSrc);
+    setShowImageOptionModal(false);
+  };
 
   const content = showImageOptionModal && (
     <div
@@ -45,7 +53,10 @@ export default function ImageOptionModal({ id }) {
         </svg>
         <span>Adjust Crop</span>
       </div>
-      <div className=" flex items-center space-x-2 bg-white py-2 w-64 border-t-2 border-gray-200 pl-4">
+      <div
+        className=" flex items-center space-x-2 bg-white py-2 w-64 border-t-2 border-gray-200 pl-4"
+        onClick={removeClickHandling}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5"

@@ -27,8 +27,8 @@ export default function App() {
     <div className="App">
       <div className="flex flex-col h-screen">
         <Navbar />
-        <div className="flex-grow  flex justify-center items-center p-5 overflow-x-scroll">
-          <div className="inline-flex w-full space-x-5 ">
+        <div className="flex-grow  flex justify-center items-center">
+          <div className="inline-flex w-full space-x-5  overflow-x-scroll h-full items-center xs:no-scrollbar">
             {imageSrc.length > 0 ? (
               <>
                 <div className="h-48 w-48 min-w-min">
@@ -49,29 +49,11 @@ export default function App() {
                     />
                   </div>
                 </div>
-                {/* check if there's any uploaded images */}
-                <div className="flex flex-shrink-0 space-x-5">
-                  {imageSrc.length > 0 ? (
-                    imageSrcCropped.map((element) => (
-                      <SingleImage id={element.id} key={element.id} />
-                    ))
-                  ) : (
-                    // if there's no uploaded img then show placeholder
-                    <div>
-                      <label htmlFor="upload-image">
-                        <div className=" h-48 w-48 animate-pulse border-dashed border-4 border-pink-500 rounded-xl flex justify-center items-center text-6xl text-pink-500">
-                          <div>+</div>
-                        </div>
-                      </label>
-                      <input
-                        className="hidden"
-                        type="file"
-                        onChange={onFileChange}
-                        accept="image/*"
-                        id="upload-image"
-                      />
-                    </div>
-                  )}
+                {/* map over the imageSrcCropped */}
+                <div className="flex flex-shrink-0 space-x-5 items-center">
+                  {imageSrcCropped.map((element) => (
+                    <SingleImage id={element.id} key={element.id} />
+                  ))}
                 </div>
                 <div className="h-48 w-48 min-w-min">
                   <div className="w-48 h-48">
@@ -93,7 +75,7 @@ export default function App() {
                 </div>
               </>
             ) : (
-              <div className="">
+              <div className="flex flex-col w-full items-center justify-center">
                 <div className="text-xl ">Choose a picture</div>
                 <label htmlFor="upload-image">
                   <div className=" h-48 w-48 animate-pulse border-dashed border-4 border-pink-500 rounded-xl flex justify-center items-center text-6xl text-pink-500">
