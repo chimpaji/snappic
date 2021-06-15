@@ -28,7 +28,7 @@ export default function App() {
       <div className="flex flex-col h-screen">
         <Navbar />
         <div className="flex-grow  flex justify-center items-center p-5 overflow-x-scroll">
-          <div className="inline-flex w-full space-x-5 justify-center">
+          <div className="inline-flex w-full space-x-5 ">
             {imageSrc.length > 0 ? (
               <>
                 <div className="h-48 w-48 min-w-min">
