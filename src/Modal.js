@@ -16,7 +16,7 @@ export const Modal = (props) => {
   // };
 
   const content = showModal && (
-    <div className="absolute bg-gray-500 bg-opacity-50 h-full w-full flex justify-center items-center">
+    <div className="z-50 absolute bg-gray-500 bg-opacity-50 h-full w-full flex justify-center items-center">
       <div className="w-9/12 flex-col justify-center items ">
         <header className="bg-pink-500  text-white text-xl text-center">
           Lets Crop Something

@@ -1,5 +1,5 @@
 import { useGlobalContext } from "./context";
-
+import "./styles.css";
 export default function SingleImage({ id }) {
   const {
     imageSrc,
@@ -8,17 +8,25 @@ export default function SingleImage({ id }) {
     setSelectedImageId,
     setImageSrcCropped,
     setImageSrc,
-    imageOptionHandling
+    imageOptionHandling,
+    singleImageBorder
   } = useGlobalContext();
 
   return (
     <div className="flex flex-col">
-      <div className="">
+      <div className="relative z-10 w-48">
         <img
-          onClick={() => imageOptionHandling(id)}
-          className="w-48 shadow-2xl"
+          id="xzz"
+          className="xzz w-48"
           src={imageSrcCropped.find((element) => element.id === id).img}
           alt="crop"
+        />
+
+        <img
+          onClick={() => imageOptionHandling(id)}
+          className=" absolute top-0 w-48"
+          src={`/img/borderSingleImage/${singleImageBorder}.svg`}
+          alt={singleImageBorder}
         />
       </div>
       {/* <div className="flex">
