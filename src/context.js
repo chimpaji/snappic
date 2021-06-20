@@ -4,6 +4,7 @@ import getCroppedImg from "./components/Cropper/cropImage";
 // const dogImg =
 //   "https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
@@ -169,12 +170,10 @@ const AppProvider = ({ children }) => {
   //ending handlingInput
 
   //handleUpload
-  const handleUpload = async () => {
+  const [uploadProgress, onUploadProgress] = useState(0);
+  const handleUpload = async ({ name = "noname", address = "nowhere" }) => {
     const formData = new FormData();
-    formData.append(
-      "data",
-      JSON.stringify({ name: "Someone", address: "307 somewhere" })
-    );
+    formData.append("data", JSON.stringify({ name, address }));
     console.log("reveiw imageSrcCroppe before sent: ", imageSrcCropped);
     function dataURLtoFile(dataurl, filename) {
       console.log(dataurl.split(","));
@@ -198,16 +197,42 @@ const AppProvider = ({ children }) => {
 
     // console.log("dataURLtoFile: ", uploadImage);
 
-    try {
-      const response = await fetch("http://snappic.herokuapp.com/orders", {
-        method: "POST",
-        body: formData,
+    // try {
+    //   const response = await fetch("http://snappic.herokuapp.com/orders", {
+    //     method: "POST",
+    //     body: formData,
+    //   });
+    //   const data = await response.json();
+    //   console.log(data);
+    // } catch (error) {
+    //   console.log("Some error: ", error);
+    // }
+    const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+    const URL = "http://snappic.herokuapp.com/orders";
+    axios({
+      method: "post",
+      url: PROXY_URL + URL,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Access-Control-Allow-Origin": true,
+      },
+      onUploadProgress: (progressEvent) => {
+        const progress = parseInt(
+          Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        );
+        // Update state here
+        onUploadProgress(progress);
+      },
+    })
+      .then(function (response) {
+        //handle success
+        console.log("Axios response: ", response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log("Axios Error response", response);
       });
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log("Some error: ", error);
-    }
   };
 
   return (
@@ -246,6 +271,9 @@ const AppProvider = ({ children }) => {
         setAddImagePosition,
         addImagePosition,
         handleUpload,
+        showCheckoutModal,
+        setShowCheckoutModal,
+        uploadProgress,
       }}
     >
       {children}
