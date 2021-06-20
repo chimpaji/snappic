@@ -154,6 +154,7 @@ const AppProvider = ({ children }) => {
       setShowModal(true);
     }
   };
+
   function readFile(file) {
     return new Promise((resolve) => {
       const reader = new FileReader();
