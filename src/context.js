@@ -57,6 +57,10 @@ const AppProvider = ({ children }) => {
       ? setSingleImageBorder("black")
       : setSingleImageBorder("white");
   };
+  //Checkout modal
+  const [showCheckoutModal, setShowCheckoutModal] = useState(true);
+
+  //end Checkout modal
   //Modal's state
   const [showModal, setShowModal] = useState(false);
   //Image option Modal
