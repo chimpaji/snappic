@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReactDOM from "react-dom";
-import { useGlobalContext } from "../context";
-import Crop from "../cropper";
+import { useGlobalContext } from "../../context";
+import Crop from "../Cropper/cropper";
 
 export const Modal = (props) => {
   const { setShowModal, showModal } = props;

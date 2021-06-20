@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { useGlobalContext } from "./context";
+import { useGlobalContext } from "../../context";
 
 export default function ImageOptionModal({ id }) {
   const {
@@ -10,7 +10,7 @@ export default function ImageOptionModal({ id }) {
     selectedImageId,
     setImageSrc,
     setImageSrcCropped,
-    imageSrcCropped
+    imageSrcCropped,
   } = useGlobalContext();
   const adjustClickHandling = () => {
     setShowModal(true);

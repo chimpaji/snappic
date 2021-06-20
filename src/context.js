@@ -1,6 +1,6 @@
 //context.js boilerplate
 import React, { useCallback, useContext, useState } from "react";
-import getCroppedImg from "./cropImage";
+import getCroppedImg from "./components/Cropper/cropImage";
 // const dogImg =
 //   "https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000";
 import { v4 as uuidv4 } from "uuid";

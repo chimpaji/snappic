@@ -1,4 +1,4 @@
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../../context";
 
 export default function BorderChoice({ index, selected = "false" }) {
   const { border, chooseBorderHandling } = useGlobalContext();

@@ -1,4 +1,4 @@
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../../context";
 import BorderChoice from "./BorderChoice";
 import NavbarUpper from "./NavbarUpper";
 

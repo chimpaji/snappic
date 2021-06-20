@@ -1,5 +1,5 @@
 import { useGlobalContext } from "../context";
-import "./styles.css";
+import "../styles.css";
 export default function SingleImage({ id }) {
   const {
     imageSrc,

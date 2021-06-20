@@ -1,9 +1,10 @@
-import Body from "./Body";
-import Bottom from "./Bottom";
+import MainImageUploadAndCrop from "./components/MainImageUploadAndCrop";
+
+import Bottom from "./components/Bottom";
 import { useGlobalContext } from "./context";
-import ImageOptionModal from "./imageOptionModal";
-import { Modal } from "./Modal";
-import Navbar from "./Navbar/Navbar";
+import ImageOptionModal from "./components/Modal/ImageOptionModal";
+import { Modal } from "./components/Modal/Modal";
+import Navbar from "./components/Navbar/Navbar";
 import "./styles.css";
 export default function App() {
   const { showModal, setShowModal } = useGlobalContext();
@@ -11,7 +12,7 @@ export default function App() {
     <div className="App">
       <div className="flex flex-col h-screen">
         <Navbar />
-        <Body />
+        <MainImageUploadAndCrop />
         <Bottom />
       </div>
       <Modal setShowModal={setShowModal} showModal={showModal} />

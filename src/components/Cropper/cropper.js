@@ -1,6 +1,6 @@
 import React from "react";
 import Cropper from "react-easy-crop";
-import { useGlobalContext } from "./context";
+import { useGlobalContext } from "../../context";
 import getCroppedImg from "./cropImage";
 const dogImg =
   "https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000";
@@ -21,7 +21,7 @@ export default function Crop() {
     showCroppedImage,
     imageSrc,
     selectedImageId,
-    imageSrcCropped
+    imageSrcCropped,
   } = useGlobalContext();
   // const [crop, setCrop] = useState({ x: 0, y: 0 });
   // const [rotation, setRotation] = useState(0);

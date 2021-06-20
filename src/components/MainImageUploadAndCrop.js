@@ -1,10 +1,10 @@
-import { useGlobalContext } from "./context";
-import SingleImage from "./singleImage";
+import { useGlobalContext } from "../context";
+import SingleImage from "./SingleImage";
 import UploadMoreButton, {
   BackUploadMoreButton,
   FrontUploadMoreButton,
-} from "./uploadMoreButton";
-import UploadMoreButtonAnimation from "./uploadMoreButtonAnimation";
+} from "./UploadMoreButton";
+import UploadMoreButtonAnimation from "./UploadMoreButtonAnimation";
 
 export default function Body() {
   const { imageSrc, imageSrcCropped } = useGlobalContext();
