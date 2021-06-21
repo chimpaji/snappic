@@ -5,19 +5,13 @@ import ImageOptionModal from "./components/Modal/ImageOptionModal";
 import { Modal } from "./components/Modal/Modal";
 import Navbar from "./components/Navbar/Navbar";
 import "./styles.css";
+import Main from "./pages/Main";
 import CheckoutModal from "./components/Modal/CheckoutModal/CheckoutModal";
 export default function App() {
   const { showModal, setShowModal } = useGlobalContext();
   return (
     <div className="App">
-      <div className="flex flex-col h-screen">
-        <Navbar />
-        <MainImageUploadAndCrop />
-        <Bottom />
-      </div>
-      <Modal setShowModal={setShowModal} showModal={showModal} />
-      <ImageOptionModal />
-      <CheckoutModal />
+      <Main />
     </div>
   );
 }

@@ -171,9 +171,14 @@ const AppProvider = ({ children }) => {
 
   //handleUpload
   const [uploadProgress, onUploadProgress] = useState(0);
-  const handleUpload = async ({ name = "noname", address = "nowhere" }) => {
+  const handleUpload = async ({
+    name = "noname",
+    phone = "nophone",
+    address = "nowhere",
+    slipt = [],
+  }) => {
     const formData = new FormData();
-    formData.append("data", JSON.stringify({ name, address }));
+    formData.append("data", JSON.stringify({ name, phone, address }));
     console.log("reveiw imageSrcCroppe before sent: ", imageSrcCropped);
     function dataURLtoFile(dataurl, filename) {
       console.log(dataurl.split(","));
@@ -189,11 +194,13 @@ const AppProvider = ({ children }) => {
 
       return new File([u8arr], filename, { type: mime });
     }
-
+    //Addpend Customer Image to Form
     for (let image of imageSrcCropped) {
       const uploadImage = dataURLtoFile(image.img, "someweirdfile.jpeg");
       formData.append("files.images", uploadImage);
     }
+    //Upload Slip Image to Form
+    formData.append("files.slipt", slipt);
 
     // console.log("dataURLtoFile: ", uploadImage);
 

@@ -29,6 +29,7 @@ export default function CheckoutModal() {
     setPage(page + 1);
     handleUpload({
       name: name,
+      phone: phone,
       address: [
         phone,
         houseNumber,
@@ -37,6 +38,7 @@ export default function CheckoutModal() {
         province,
         zipcode,
       ].join(" "),
+      slipt: sliptFile,
     });
   };
 
@@ -200,7 +202,7 @@ export default function CheckoutModal() {
                   <div>
                     <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200">
                       {uploadProgress < 100
-                        ? "กำลังส่งออเดอร์"
+                        ? "กำลังประมวลภาพของคุณ โปรดรอสักครู่"
                         : "รับออเดอร์เรียบร้อย"}
                     </span>
                   </div>
@@ -219,6 +221,14 @@ export default function CheckoutModal() {
               </div>
               {/* button upload for testing! */}
               {/* <button onClick={handleUpload}>Submit</button> */}
+              {/* Show order data */}
+              <div className="flex flex-col text-left bg-gray-300 p-2 rounded-xl">
+                <div>หมายเลขออเดอร์ของคุณ:TH-48916127</div>
+                <div>ชื่อผู้รับ:{name}</div>
+                <div>เบอร์ติดต่อ:{phone}</div>
+                <div>สถานที่จัดส่ง:{fullAddress}</div>
+                <div>สินค้าจัดส่งภายใน:~7วัน</div>
+              </div>
             </div>
           )}
 
