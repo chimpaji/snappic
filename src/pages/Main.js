@@ -5,6 +5,7 @@ import ImageOptionModal from "../components/Modal/ImageOptionModal";
 import { Modal } from "../components/Modal/Modal";
 import Navbar from "../components/Navbar/Navbar";
 import { useGlobalContext } from "../context";
+import CheckoutModal from "../components/Modal/CheckoutModal/CheckoutModal";
 
 const Main = () => {
   const { showModal, setShowModal } = useGlobalContext();
@@ -17,6 +18,7 @@ const Main = () => {
       </div>
       <Modal setShowModal={setShowModal} showModal={showModal} />
       <ImageOptionModal />
+      <CheckoutModal />
     </div>
   );
 };

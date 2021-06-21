@@ -1,17 +1,19 @@
-import MainImageUploadAndCrop from "./components/MainImageUploadAndCrop";
-import Bottom from "./components/Bottom";
 import { useGlobalContext } from "./context";
-import ImageOptionModal from "./components/Modal/ImageOptionModal";
-import { Modal } from "./components/Modal/Modal";
-import Navbar from "./components/Navbar/Navbar";
 import "./styles.css";
 import Main from "./pages/Main";
-import CheckoutModal from "./components/Modal/CheckoutModal/CheckoutModal";
+import Homepage from "./pages/Homepage";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 export default function App() {
-  const { showModal, setShowModal } = useGlobalContext();
   return (
-    <div className="App">
-      <Main />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/main">
+          <Main />
+        </Route>
+        <Route exact path="/">
+          <Homepage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
