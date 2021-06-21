@@ -44,7 +44,7 @@ export default function AddressForm(props) {
           type="number"
           minLength="10"
           value={phone}
-          onChange={(e) => setPhone(e.target.phone)}
+          onChange={(e) => setPhone(e.target.value)}
           placeholder="เบอร์โทร"
           className="p-1 px-2 w-full  rounded-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-600 "
         />

@@ -73,8 +73,8 @@ export default function CheckoutModal() {
   const [isFetching, setIsFetching] = useState(true);
 
   return (
-    <div className={`CheckoutModal ${!showCheckoutModal && hidden} `}>
-      <div className="CheckoutSection z-40 bg-white  absolute w-full bottom-0  shadow-2xl  flex flex-col justify-center items-center space-y-2">
+    <div className={`CheckoutModal ${!showCheckoutModal && "hidden"}`}>
+      <div className="CheckoutSection z-40 bg-gray-100 round-t-lg  absolute w-full bottom-0  shadow-2xl  flex flex-col justify-center items-center space-y-2">
         <div className=" p-4 max-w-xl flex-col justify-center items-center">
           <div className="Header w-full flex h-16 select-none">
             <div
@@ -84,7 +84,7 @@ export default function CheckoutModal() {
                   : "bg-gray-200 flex-1 flex justify-center items-center rounded-t-3xl text-gray-500 text-xl"
               }
             >
-              กรอกที่อยู่
+              กรอกที่อยู่{showCheckoutModal}
             </div>
             <div
               className={
@@ -224,22 +224,38 @@ export default function CheckoutModal() {
 
           {/* Bottom Button Section */}
           {page == 0 && (
-            <div
-              className="cursor-pointer bg-pink-500 py-2 justify-center text-white font-bold rounded-md mt-1 flex flex-shrink-0"
-              onClick={onNextAddress}
-            >
-              ชำระเงิน
+            <div className="flex w-full space-x-2">
+              <div
+                className="flex-1 cursor-pointer bg-pink-500 py-2 justify-center text-white font-bold rounded-md mt-1 flex flex-shrink-0"
+                onClick={() => setShowCheckoutModal(false)}
+              >
+                กลับ
+              </div>
+              <div
+                className="flex-1 cursor-pointer bg-pink-500 py-2 justify-center text-white font-bold rounded-md mt-1 flex flex-shrink-0"
+                onClick={onNextAddress}
+              >
+                ชำระเงิน
+              </div>
             </div>
           )}
           {page == 1 && (
-            <div
-              className="cursor-pointer bg-pink-500 py-2 justify-center text-white font-bold rounded-md mt-1 flex flex-shrink-0"
-              onClick={() => {
-                onNextPayment();
-                console.log("im gonna upload");
-              }}
-            >
-              ชำระเงิน
+            <div className="flex w-full space-x-2">
+              <div
+                className="flex-1 cursor-pointer bg-pink-500 py-2 justify-center text-white font-bold rounded-md mt-1 flex flex-shrink-0"
+                onClick={() => setPage(page - 1)}
+              >
+                กลับ
+              </div>
+              <div
+                className="flex-1 cursor-pointer bg-pink-500 py-2 justify-center text-white font-bold rounded-md mt-1 flex flex-shrink-0"
+                onClick={() => {
+                  onNextPayment();
+                  console.log("im gonna upload");
+                }}
+              >
+                ชำระเงิน
+              </div>
             </div>
           )}
         </div>

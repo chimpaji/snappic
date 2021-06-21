@@ -1,11 +1,11 @@
 import { useGlobalContext } from "../context";
 
 export default function Bottom() {
-  const { handleUpload } = useGlobalContext();
+  const { handleUpload, setShowCheckoutModal } = useGlobalContext();
   return (
     <div
       className="border-t-2 border-black-100 p-2  flex justify-center items-center"
-      onClick={handleUpload}
+      onClick={() => setShowCheckoutModal(true)}
     >
       <a
         href="#"
