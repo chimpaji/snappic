@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useGlobalContext } from "../../../context";
 import AddressForm from "./AddressForm";
+import ReactPixel from "react-facebook-pixel";
+
 export default function CheckoutModal() {
 	const {
 		showCheckoutModal,
@@ -13,6 +15,7 @@ export default function CheckoutModal() {
 	const [error, setError] = useState("");
 	const [page, setPage] = useState(0);
 	const onNextAddress = (e) => {
+		ReactPixel.track("AddToCart", { currency: "THB", value: totalPrice });
 		console.log(houseNumber, subdistrict, district, province, zipcode);
 
 		if (!houseNumber || !subdistrict || !district || !province || !zipcode) {
@@ -27,6 +30,8 @@ export default function CheckoutModal() {
 			//if come to slipupload and no file, return!
 			return;
 		}
+
+		ReactPixel.track("Purchase", { currency: "THB", value: totalPrice });
 		setPage(page + 1);
 		handleUpload({
 			name: name,

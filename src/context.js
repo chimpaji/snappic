@@ -5,6 +5,8 @@ import getCroppedImg from "./components/Cropper/cropImage";
 //   "https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import ReactPixel from 'react-facebook-pixel';
+
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
@@ -197,6 +199,7 @@ const AppProvider = ({ children }) => {
 		address = "nowhere",
 		slipt = [],
 	}) => {
+		
 		const formData = new FormData();
 		formData.append(
 			"data",

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ReactPlayer from "react-player/youtube";
 import { Link } from "react-router-dom";
+import ReactPixel from "react-facebook-pixel";
 
 const Homepage = () => {
+	useEffect(() => {
+		ReactPixel.track("ViewContent", {});
+	}, []);
 	return (
 		<div className='relative'>
 			<div className='flex flex-col text-gray-700 scrollable-pitch'>
