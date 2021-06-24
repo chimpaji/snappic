@@ -36,7 +36,7 @@ const Homepage = () => {
 					</div>
 					<div className='text-container'>
 						<div className='mb-5 text-4xl font-bold leading-10'>
-							Turn your photos into stunning wall art
+							เปลี่ยนรูปในมือถือมาเป็นกรอบรูปที่น่าจดจำบนผนัง
 						</div>
 					</div>
 					<div className='header-photo'>
@@ -80,7 +80,7 @@ const Homepage = () => {
 							controls={true}
 							light='./img/homepage/thumbnail.jpg'
 							width='340px'
-							url='https://youtu.be/1h0iG_9q02A'
+							url='https://youtu.be/XU9Xd4_bNu0'
 						/>
 					</div>
 
@@ -128,7 +128,7 @@ const Homepage = () => {
 			<div className='absolute sticky bottom-0 flex items-center justify-center w-full bg-white shadow-2xl sticky-pitch'>
 				<Link to='/main'>
 					<button className='z-50 px-32 py-2 my-4 text-xl font-bold text-white bg-pink-500 rounded-md'>
-						Let's Go
+						เริ่มเลย
 					</button>
 				</Link>
 			</div>

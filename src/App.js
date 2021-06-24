@@ -9,7 +9,7 @@ const options = {
 	debug: true, // enable logs
 };
 //Just replace FB pixel id here and its all good
-const PIXEL_ID = "111111111111111";
+const PIXEL_ID = "638146346577970";
 ReactPixel.init(PIXEL_ID, undefined, options);
 
 export default function App() {
