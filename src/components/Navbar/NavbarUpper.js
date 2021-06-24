@@ -1,10 +1,15 @@
+import { Link } from "react-router-dom";
+
+
+
 export default function NavbarUpper() {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between lg:mx-4 lg:mt-4 lg:mb-2">
+    <Link to='/'>
       <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
+          className="h-4 w-4 lg:h-8 lg:w-8"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -17,11 +22,12 @@ export default function NavbarUpper() {
           />
         </svg>
       </div>
-      <div className="text-gray-800 text-bold font-semibold ">SNAPPIC</div>
+      </Link>
+      <div className="select-none text-gray-800 text-bold lg:text-2xl font-semibold ">SNAPPIC</div>
       <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
+          className="h-4 w-4 lg:h-8 lg:w-8"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

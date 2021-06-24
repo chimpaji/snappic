@@ -9,7 +9,7 @@ export default function Bottom() {
     >
       <a
         href="#"
-        className="bg-pink-500 rounded-xl py-2 px-24 text-white font-bold"
+        className="bg-pink-500 rounded-xl py-2 px-24 text-white font-bold md:text-2xl "
       >
         ชำระเงิน
       </a>
