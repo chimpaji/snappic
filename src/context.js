@@ -186,8 +186,8 @@ const AppProvider = ({ children }) => {
 	const getNormalizedFile = (file) => {
 		return new Promise((resolve, reject) => {
 			new Compressor(file, {
-				maxWidth: 1000,
-				maxHeight: 1000,
+				maxWidth: 2000,
+				maxHeight: 2000,
 				success(normalizedFile) {
 					resolve(normalizedFile);
 				},
