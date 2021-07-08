@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ReactPixel from "react-facebook-pixel";
 const options = {
 	autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
-	debug: true, // enable logs
+	debug: false, // enable logs
 };
 
 //Just replace FB pixel id here and its all good
