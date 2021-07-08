@@ -83,7 +83,7 @@ const AppProvider = ({ children }) => {
 	const [croppedImage, setCroppedImage] = useState(null);
 	const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
 		console.log("cropped moved");
-
+		console.log("croppedAreaPixels: ", croppedAreaPixels);
 		setCroppedAreaPixels(croppedAreaPixels);
 	}, []);
 	const showCroppedImage = useCallback(
@@ -97,23 +97,28 @@ const AppProvider = ({ children }) => {
 					croppedAreaPixels,
 					rotation
 				);
-				// console.log("donee", { croppedImage });
-				// const newImageSrcCropped = imageSrcCropped.filter(
-				//   (element) => element.id !== id
-				// );
+
+				//make a copy of iamgeSrcCropped array
 				const newImageSrcCropped = [...imageSrcCropped];
 				setCroppedImage(croppedImage);
-				//we need to fix this for the positioning
+
+				//replace the existing ImageSrcCropped in newImageSrcCropped with the new cropped one
 				newImageSrcCropped[
 					imageSrcCropped.indexOf(
 						imageSrcCropped.find((element) => element.id === id)
 					)
 				] = { id: `${id}`, img: croppedImage };
-				// setImageSrcCropped([
-				//   ...newImageSrcCropped,
-				//   { id: `${id}`, img: croppedImage }
-				// ]);
+
+				//replace the ImageSrcCropped whole array with the new one
 				setImageSrcCropped([...newImageSrcCropped]);
+
+				//reset croppedAreaPixels and zoom after finish edit the image
+				console.log("resetting croppedAreaPixels");
+				setCroppedAreaPixels(undefined);
+				console.log("croppedAreaPixels: ", croppedAreaPixels);
+				console.log("resetting zoom");
+				setZoom(1);
+				console.log("zoom: ", zoom);
 			} catch (e) {
 				console.error(e);
 			}
@@ -131,22 +136,66 @@ const AppProvider = ({ children }) => {
 			let imageDataUrl = await readFile(file);
 			console.log("uploading files");
 
+			//generate id for newly uploaded img
 			const newUploadImageId = uuidv4();
-			//if addImagePosition is infront then we add image to the first element index
-			setSelectedImageId(newUploadImageId);
-			console.log(addImagePosition);
 
+			setSelectedImageId(newUploadImageId);
+
+			//get height and width of the uploaded file
+			function getImageDimensions(file) {
+				return new Promise(function (resolved, rejected) {
+					let i = new Image();
+					i.onload = function () {
+						resolved({ w: i.width, h: i.height });
+					};
+					i.src = file;
+				});
+			}
+			let dimensions = await getImageDimensions(imageDataUrl);
+			console.log("dimensions: ", dimensions);
+			//calculate position for center the cropped image return object with center position data for CroppedAreaPixels
+			function calculateCenterCroppedAreaPixels() {
+				let widthImg = dimensions.w;
+				let heightImg = dimensions.h;
+				let x, y, width, height;
+
+				if (widthImg >= heightImg) {
+					width = heightImg;
+					height = heightImg;
+					x = (widthImg - width) / 2;
+					y = 0;
+				} else {
+					width = widthImg;
+					height = widthImg;
+					x = 0;
+					y = (heightImg - height) / 2;
+				}
+				return { width: width, height: height, x: x, y: y };
+			}
+			console.log(
+				"calculateCenterCroppedAreaPixels: ",
+				calculateCenterCroppedAreaPixels()
+			);
+
+			//cropped the uploaded img for first time upload
+			const croppedImage = await getCroppedImg(
+				imageDataUrl,
+				calculateCenterCroppedAreaPixels()
+			);
+
+			//add uploaded image to "ImageSrcCropped" array
+			//if click front upload(addImagePosition) button then add image in the frontest, otherwise...
 			addImagePosition === "front"
 				? setImageSrcCropped([
-						{ id: `${newUploadImageId}`, img: imageDataUrl },
+						{ id: `${newUploadImageId}`, img: croppedImage },
 						...imageSrcCropped,
 				  ])
 				: setImageSrcCropped([
 						...imageSrcCropped,
-						{ id: `${newUploadImageId}`, img: imageDataUrl },
+						{ id: `${newUploadImageId}`, img: croppedImage },
 				  ]);
 
-			// console.log(imageSrc);
+			//add uploaded image to "ImageSrc" array
 			addImagePosition === "front"
 				? setImageSrc([
 						{ id: `${newUploadImageId}`, img: imageDataUrl },
@@ -156,12 +205,12 @@ const AppProvider = ({ children }) => {
 						...imageSrc,
 						{ id: `${newUploadImageId}`, img: imageDataUrl },
 				  ]);
-			// console.log("working on next cropped src");
 
-			setShowModal(true);
+			// ---show ImageEditor modal after upload---
+			// setShowModal(true);
 		}
 	};
-	//readFile fn without compress fn (getNormalizedFile)
+	//---readFile fn without compress fn (getNormalizedFile)---
 	// function readFile(file) {
 	// 	return new Promise((resolve) => {
 	// 		const reader = new FileReader();
@@ -274,7 +323,6 @@ const AppProvider = ({ children }) => {
 		// } catch (error) {
 		//   console.log("Some error: ", error);
 		// }
-		const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
 		const URL = "https://snappic.herokuapp.com/orders";
 		axios({
 			method: "post",

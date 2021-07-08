@@ -8,8 +8,12 @@ const options = {
 	autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
 	debug: true, // enable logs
 };
+function ReactIsInDevelomentMode() {
+	return "_self" in React.createElement("div");
+}
+
 //Just replace FB pixel id here and its all good
-const PIXEL_ID = "638146346577970";
+const PIXEL_ID = ReactIsInDevelomentMode ? "1111111111111" : "638146346577970";
 ReactPixel.init(PIXEL_ID, undefined, options);
 
 export default function App() {
