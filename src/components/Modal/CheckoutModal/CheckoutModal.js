@@ -211,7 +211,7 @@ export default function CheckoutModal() {
 										<span className='inline-block px-2 py-1 text-xs font-semibold text-pink-600 uppercase bg-pink-200 rounded-full'>
 											{uploadProgress < 100
 												? "กำลังประมวลภาพของคุณ โปรดรอสักครู่"
-												: "รับออเดอร์เรียบร้อย"}
+												: "การสั่งซื้อสำเร็จ"}
 										</span>
 									</div>
 									<div className='text-right'>

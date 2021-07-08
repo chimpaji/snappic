@@ -161,7 +161,7 @@ const AppProvider = ({ children }) => {
 			setShowModal(true);
 		}
 	};
-
+	//readFile fn without compress fn (getNormalizedFile)
 	// function readFile(file) {
 	// 	return new Promise((resolve) => {
 	// 		const reader = new FileReader();
