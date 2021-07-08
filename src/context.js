@@ -6,6 +6,7 @@ import getCroppedImg from "./components/Cropper/cropImage";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import ReactPixel from "react-facebook-pixel";
+import Compressor from "compressorjs";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
@@ -161,13 +162,41 @@ const AppProvider = ({ children }) => {
 		}
 	};
 
-	function readFile(file) {
-		return new Promise((resolve) => {
-			const reader = new FileReader();
-			reader.addEventListener("load", () => resolve(reader.result), false);
-			reader.readAsDataURL(file);
+	// function readFile(file) {
+	// 	return new Promise((resolve) => {
+	// 		const reader = new FileReader();
+	// 		reader.addEventListener("load", () => resolve(reader.result), false);
+	// 		reader.readAsDataURL(file);
+	// 	});
+	// }
+	const readFile = useCallback((file) => {
+		return new Promise((resolve, reject) => {
+			try {
+				const reader = new FileReader();
+				reader.onload = () => resolve(reader.result);
+				getNormalizedFile(file)
+					.then((normalizedFile) => reader.readAsDataURL(normalizedFile))
+					.catch((error) => reject(error));
+			} catch (error) {
+				reject(error);
+			}
 		});
-	}
+	}, []);
+
+	const getNormalizedFile = (file) => {
+		return new Promise((resolve, reject) => {
+			new Compressor(file, {
+				maxWidth: 1000,
+				maxHeight: 1000,
+				success(normalizedFile) {
+					resolve(normalizedFile);
+				},
+				error(error) {
+					reject(error);
+				},
+			});
+		});
+	};
 	//ending handlingInput
 
 	//handlePrice
