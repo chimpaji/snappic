@@ -5,7 +5,7 @@ Turn your picture in your phone into memorable pictures on the wall
 
 Site: [https://snappic.chimpaji.com/](https://snappic.chimpaji.com/)
 
-![Snappic](https://media.giphy.com/media/LnQNJg6LoVzEa5Ccvr/giphy.gif)
+![Snappic](https://media.giphy.com/media/XNMfjaR6537qOR821w/giphy.gif)
 
 
 ## Technology
