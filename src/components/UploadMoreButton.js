@@ -32,6 +32,7 @@ export function FrontUploadMoreButton(props) {
           }}
           accept="image/*"
           id="upload-image-front"
+          multiple
         />
       </div>
     </div>
@@ -70,6 +71,7 @@ export function BackUploadMoreButton(props) {
           }}
           accept="image/*"
           id="upload-image-back"
+          multiple
         />
       </div>
     </div>
@@ -96,6 +98,7 @@ export default function UploadMoreButton(props) {
           </div>
         </label>
         <input
+          multiple
           className="hidden"
           type="file"
           onChange={(e) => {

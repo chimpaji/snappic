@@ -16,6 +16,7 @@ export default function UploadMoreButtonAnimation() {
         onChange={onFileChange}
         accept="image/*"
         id="upload-image"
+        multiple
       />
     </div>
   );

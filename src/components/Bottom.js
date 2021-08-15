@@ -1,11 +1,20 @@
 import { useGlobalContext } from "../context";
 
 export default function Bottom() {
-  const { handleUpload, setShowCheckoutModal } = useGlobalContext();
+  const { handleUpload, setShowCheckoutModal, totalPrice } = useGlobalContext();
   return (
     <div
       className="border-t-2 border-black-100 p-2  flex justify-center items-center"
-      onClick={() => setShowCheckoutModal(true)}
+      onClick={() => {
+        //Tiktok pixel fire add to cart event
+        ttq.track("AddToCart", {
+          content_id: "snappic",
+          content_name: "snappic",
+          value: `${totalPrice}`,
+          currency: "THB",
+        });
+        setShowCheckoutModal(true);
+      }}
     >
       <a
         href="#"
