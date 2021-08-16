@@ -13,7 +13,7 @@ export default function UploadMoreButtonAnimation() {
       <input
         className="hidden"
         type="file"
-        onChange={onFileChange}
+        onChange={(e) => onFileChange(e)}
         accept="image/*"
         id="upload-image"
         multiple
