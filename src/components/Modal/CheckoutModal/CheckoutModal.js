@@ -14,6 +14,7 @@ export default function CheckoutModal() {
   //Checkout page functionality
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
+
   const onNextAddress = (e) => {
     //Facebook pixel fire initaite chekcout
     // ReactPixel.track("AddToCart", { currency: "THB", value: totalPrice });
@@ -31,13 +32,31 @@ export default function CheckoutModal() {
       return;
     }
     setPage(page + 1);
+    function gtag_report_conversion(url, totalPrice) {
+      var callback = function () {
+        if (typeof url != "undefined") {
+          window.location = url;
+        }
+      };
+      gtag("event", "conversion", {
+        send_to: "AW-319570466/OsMeCN7akOoCEKKEsZgB",
+        value: `${totalPrice}`,
+        currency: "THB",
+        transaction_id: "",
+        event_callback: callback,
+      });
+      return false;
+    }
+    gtag_report_conversion(undefined, totalPrice);
   };
+
   const onNextPayment = (e) => {
     if (page === 1 && !sliptFile) {
       setError("โปรดแนบสลิปการโอน");
       //if come to slipupload and no file, return!
       return;
     }
+
     //Tiktok pixel place order
     ttq.track("PlaceAnOrder", {
       content_id: "snappic",
