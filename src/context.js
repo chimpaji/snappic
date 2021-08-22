@@ -61,7 +61,7 @@ const AppProvider = ({ children }) => {
       : setSingleImageBorder("white");
   };
   //showSidebar
-  const [sideBar, setSideBar] = useState(true);
+  const [sideBar, setSideBar] = useState(false);
 
   //Checkout modal
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
