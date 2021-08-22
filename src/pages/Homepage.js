@@ -38,7 +38,14 @@ const Homepage = () => {
                     />
                   </svg>
                 </div>
-                <div>ติดต่อ</div>
+                <div
+                  onClick={() => {
+                    location.href =
+                      "https://www.facebook.com/Snappic-107064187923017/";
+                  }}
+                >
+                  ติดต่อ
+                </div>
               </div>
             </a>
             <Link to="/main">

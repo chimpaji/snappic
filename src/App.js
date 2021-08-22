@@ -5,6 +5,8 @@ import Homepage from "./pages/Homepage";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 //Enable FB pixel tracking
 import ReactPixel from "react-facebook-pixel";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 const options = {
   autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
   debug: false, // enable logs
@@ -37,6 +39,8 @@ export default function App() {
         <Route exact path="/">
           <Homepage />
         </Route>
+        <Route exact path="/terms" children={Terms} />
+        <Route exact path="/privacy" children={Privacy} />
       </Switch>
     </Router>
   );

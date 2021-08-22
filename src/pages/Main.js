@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar/Navbar";
 import { useGlobalContext } from "../context";
 import CheckoutModal from "../components/Modal/CheckoutModal/CheckoutModal";
 import ReactPixel from "react-facebook-pixel";
+import Sidebar from "../components/Modal/Sidebar";
 
 const Main = () => {
   const { showModal, setShowModal } = useGlobalContext();
@@ -22,6 +23,7 @@ const Main = () => {
 
   return (
     <div className="Main">
+      <Sidebar />
       <div className="flex flex-col h-screen">
         <Navbar />
         <MainImageUploadAndCrop />
