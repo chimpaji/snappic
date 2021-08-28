@@ -269,7 +269,7 @@ export default function CheckoutModal() {
                 <div>ชื่อผู้รับ:{name}</div>
                 <div>เบอร์ติดต่อ:{phone}</div>
                 <div>สถานที่จัดส่ง:{fullAddress}</div>
-                <div>สินค้าจัดส่งภายใน:~7วัน</div>
+                <div>สินค้าจัดส่งภายใน:~7-10วัน(ไม่รวมขนระยะเวลาขนส่ง)</div>
               </div>
             </div>
           )}

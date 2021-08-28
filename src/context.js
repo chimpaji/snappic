@@ -65,6 +65,8 @@ const AppProvider = ({ children }) => {
 
   //Checkout modal
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  //CheckWall Modal
+  const [showCheckWallModal, setShowCheckWallModal] = useState(true);
 
   //end Checkout modal
   //Modal's state
@@ -501,6 +503,8 @@ const AppProvider = ({ children }) => {
         excessPrice,
         sideBar,
         setSideBar,
+        showCheckWallModal,
+        setShowCheckWallModal,
       }}
     >
       {children}

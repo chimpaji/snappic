@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MainImageUploadAndCrop from "../components/MainImageUploadAndCrop";
 import Bottom from "../components/Bottom";
 import ImageOptionModal from "../components/Modal/ImageOptionModal";
@@ -8,6 +8,7 @@ import { useGlobalContext } from "../context";
 import CheckoutModal from "../components/Modal/CheckoutModal/CheckoutModal";
 import ReactPixel from "react-facebook-pixel";
 import Sidebar from "../components/Modal/Sidebar";
+import CheckWallModal from "../components/Modal/CheckWallModal";
 
 const Main = () => {
   const { showModal, setShowModal } = useGlobalContext();
@@ -29,6 +30,7 @@ const Main = () => {
         <MainImageUploadAndCrop />
         <Bottom />
       </div>
+      <CheckWallModal />
       <Modal setShowModal={setShowModal} showModal={showModal} />
       <ImageOptionModal />
       <CheckoutModal />

@@ -7,8 +7,13 @@ import UploadMoreButton, {
 import UploadMoreButtonAnimation from "./UploadMoreButtonAnimation";
 
 export default function Body() {
-  const { imageSrc, imageSrcCropped, totalPrice, excessPrice } =
-    useGlobalContext();
+  const {
+    imageSrc,
+    imageSrcCropped,
+    totalPrice,
+    excessPrice,
+    setShowCheckWallModal,
+  } = useGlobalContext();
   console.log("inside main:imageSrcCropped>", imageSrcCropped);
   console.log("inside main:imageSrc>", imageSrc);
   return (
@@ -21,6 +26,12 @@ export default function Body() {
       <div className="absolute top-0 left-0 w-full p-2 text-sm text-gray-600 border-b-2 md:text-2xl">
         <div>เริ่มต้นที่ 3 รูป 1,250 บาท</div>
         <div>จากนั้น 320 บาท/รูป</div>
+        <div
+          onClick={() => setShowCheckWallModal(true)}
+          className="font-bold text-pink-400"
+        >
+          🛈เช็คชนิดผนังที่ติดได้
+        </div>
       </div>
       <div className="inline-flex items-center w-full h-full space-x-5 overflow-x-scroll xs:no-scrollbar">
         {imageSrc.length > 0 ? (
