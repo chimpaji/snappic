@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useGlobalContext } from "../../../context";
 import AddressForm from "./AddressForm";
 import ReactPixel from "react-facebook-pixel";
+import axios from "axios";
+import _debounce from "lodash/debounce";
 
 export default function CheckoutModal() {
   const {
@@ -92,6 +94,31 @@ export default function CheckoutModal() {
   const [province, setProvince] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [fullAddress, setFullAddress] = useState({});
+  const [coupon, setCoupon] = useState("");
+
+  const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), []);
+
+  function handleDebounceFn() {
+    console.log("im bounce!");
+    fetch(`http://127.0.0.1:8787/?couponID=${coupon}`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "text-plain",
+      },
+      method: "GET",
+      withCredentials: false,
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  const onCouponChange = (e) => {
+    setCoupon(e.target.value);
+    debounceFn(e.target.value);
+    console.log(e.target.value);
+  };
 
   function onSelect(fulladdress) {
     const { subdistrict, district, province, zipcode } = fulladdress;
@@ -184,6 +211,7 @@ export default function CheckoutModal() {
               <div className="text-2xl text-gray-700">
                 ยอดชำระ: {totalPrice}
               </div>
+              <input value={coupon} onChange={onCouponChange} />
               <div>
                 <label htmlFor="slipt">
                   {sliptFile ? (
