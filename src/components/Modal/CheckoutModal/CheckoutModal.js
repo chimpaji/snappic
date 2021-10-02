@@ -95,29 +95,41 @@ export default function CheckoutModal() {
   const [zipcode, setZipcode] = useState("");
   const [fullAddress, setFullAddress] = useState({});
   const [coupon, setCoupon] = useState("");
+  const [couponMsg, setCouponMsg] = useState("Something not good happen");
 
-  // const debounceFn = useCallback(_debounce(handleDebounceFn, 2000), []);
+  const debounceFn = useCallback(_debounce(handleDebounceFn, 2000), []);
 
-  const handleDebounceFn = _debounce(async (textCoup) => {
-    if (textCoup && textCoup.length > 4) {
+  async function handleDebounceFn(textCoup) {
+    if (textCoup && textCoup.length > 3) {
+      setCouponMsg("กำลังโหลด");
       console.log("im bounce!=>", textCoup);
-      fetch(`https://my-worker.chimpaji.workers.dev/?couponID=` + textCoup, {
-        headers: {
-          "Access-Control-Allow-Origin":
-            "https://my-worker.chimpaji.workers.dev/",
-        },
-        method: "GET",
-      })
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => console.log(err));
+      try {
+        //check coupon with backend
+        const response = await axios.get(
+          `https://my-worker.chimpaji.workers.dev/?couponID=` + textCoup,
+          {},
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+            method: "GET",
+          }
+        );
+        console.log(response);
+        //if not found coupon
+        if (!response?.data?.data?.records[0]) {
+          setCouponMsg("ไม่พบคูปอง");
+        }
+      } catch (error) {
+        console.log("error=>", error);
+      }
     }
-  }, 1000);
+  }
 
   const onCouponChange = (e) => {
     setCoupon(e.target.value);
-    handleDebounceFn(e.target.value);
+    debounceFn(e.target.value);
     console.log(e.target.value);
   };
 
@@ -212,7 +224,18 @@ export default function CheckoutModal() {
               <div className="text-2xl text-gray-700">
                 ยอดชำระ: {totalPrice}
               </div>
-              <input value={coupon} onChange={onCouponChange} />
+              <div className="flex flex-row text-2xl text-gray-700">
+                <div>คูปอง:</div>
+                <input
+                  value={coupon}
+                  onChange={onCouponChange}
+                  className="text-base p-1"
+                  placeholder="พิมพ์คูปองที่นี่(หากมี)"
+                />
+              </div>
+              {couponMsg && (
+                <span className="text-base text-red-700 p-1">{couponMsg}</span>
+              )}
               <div>
                 <label htmlFor="slipt">
                   {sliptFile ? (
