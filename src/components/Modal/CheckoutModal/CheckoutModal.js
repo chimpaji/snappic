@@ -96,28 +96,28 @@ export default function CheckoutModal() {
   const [fullAddress, setFullAddress] = useState({});
   const [coupon, setCoupon] = useState("");
 
-  const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), []);
+  // const debounceFn = useCallback(_debounce(handleDebounceFn, 2000), []);
 
-  function handleDebounceFn() {
-    console.log("im bounce!");
-    fetch(`https://my-worker.chimpaji.workers.dev/?couponID=${coupon}`, {
-      headers: {
-        "Access-Control-Allow-Origin":
-          "https://my-worker.chimpaji.workers.dev/",
-        "Content-Type": "text-plain",
-      },
-      method: "GET",
-      withCredentials: false,
-    })
-      .then((res) => {
-        console.log(res.data);
+  const handleDebounceFn = _debounce(async (textCoup) => {
+    if (textCoup && textCoup.length > 4) {
+      console.log("im bounce!=>", textCoup);
+      fetch(`https://my-worker.chimpaji.workers.dev/?couponID=` + textCoup, {
+        headers: {
+          "Access-Control-Allow-Origin":
+            "https://my-worker.chimpaji.workers.dev/",
+        },
+        method: "GET",
       })
-      .catch((err) => console.log(err));
-  }
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, 1000);
 
   const onCouponChange = (e) => {
     setCoupon(e.target.value);
-    debounceFn(e.target.value);
+    handleDebounceFn(e.target.value);
     console.log(e.target.value);
   };
 
