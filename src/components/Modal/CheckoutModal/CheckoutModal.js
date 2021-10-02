@@ -102,7 +102,8 @@ export default function CheckoutModal() {
     console.log("im bounce!");
     fetch(`https://my-worker.chimpaji.workers.dev/?couponID=${coupon}`, {
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin":
+          "https://my-worker.chimpaji.workers.dev/",
         "Content-Type": "text-plain",
       },
       method: "GET",
