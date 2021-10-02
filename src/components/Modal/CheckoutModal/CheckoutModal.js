@@ -100,7 +100,7 @@ export default function CheckoutModal() {
 
   function handleDebounceFn() {
     console.log("im bounce!");
-    fetch(`http://127.0.0.1:8787/?couponID=${coupon}`, {
+    fetch(`https://my-worker.chimpaji.workers.dev/?couponID=${coupon}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "text-plain",
